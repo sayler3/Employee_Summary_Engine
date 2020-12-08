@@ -58,6 +58,17 @@ const questions = [
     },
 ];
 
+const init = async () => {
+    try {
+        // Prompt questions
+        const userInput = await inquirer.prompt(questions);
+        console.log(userInput.addMore);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+init();
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)

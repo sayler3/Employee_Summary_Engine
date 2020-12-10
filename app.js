@@ -9,79 +9,115 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const Manger = require("./lib/Manager");
 
 // employee array
-let employee = [];
+let employees = [];
 
 // questions for user
 const questions = [
-    {
-        type: "list",
-        name: "title",
-        message: "What type of employee would you like to add",
-        choices: ["Manger", "Engineer", "Intern"],
-    },
-    {
-        type: "input",
-        name: "name",
-        message: "What is the name of the new employee",
-    },
-    {
-        type: "input",
-        name: "id",
-        message: "What is the employee's id number",
-    },
-    {
-        type: "input",
-        name: "email",
-        message: "What is the employee's email address",
-    },
-    {
-        type: "input",
-        name: "officeNum",
-        message: "What is the manger's phone number",
-        when: function(userInput){
-            return userInput.title === "Manger"
-        }
-    },
-    {
-        type: "input",
-        name: "github",
-        message: "What is the engineer's github address",
-        when: function(userInput){
-            return userInput.title === "Engineer"
-        }
-    },
-    {
-        type: "input",
-        name: "school",
-        message: "What school does the intern go to",
-        when: function(userInput){
-            return userInput.title === "Intern"
-        }
-    },
-    {
-        type: "confirm",
-        name: "addMore",
-        message: "Would you like to add more employee's",
-    },
+	{
+		type: "list",
+		name: "title",
+		message: "What type of employee would you like to add",
+		choices: ["Manger", "Engineer", "Intern"],
+	},
+	{
+		type: "input",
+		name: "name",
+		message: "What is the name of the new employee",
+	},
+	{
+		type: "input",
+		name: "id",
+		message: "What is the employee's id number",
+	},
+	{
+		type: "input",
+		name: "email",
+		message: "What is the employee's email address",
+	},
+	{
+		type: "input",
+		name: "officeNum",
+		message: "What is the manger's phone number",
+		when: function (userInput) {
+			return userInput.title === "Manger";
+		},
+	},
+	{
+		type: "input",
+		name: "github",
+		message: "What is the engineer's github address",
+		when: function (userInput) {
+			return userInput.title === "Engineer";
+		},
+	},
+	{
+		type: "input",
+		name: "school",
+		message: "What school does the intern go to",
+		when: function (userInput) {
+			return userInput.title === "Intern";
+		},
+	},
+	{
+		type: "confirm",
+		name: "addMore",
+		message: "Would you like to add more employee's",
+	},
 ];
 
 const init = async () => {
-    try {
-        // Prompt questions
-        const userInput = await inquirer.prompt(questions);
-        // while (questions.addMore === true) {
-        //     const userInput = await inquirer.prompt(questions);
-        //     return userInput
-        // }
-        // if (questions.addMore === true){
-        //     inquirer.prompt(questions);
-        // }
-        console.log(userInput.addMore);
-    } catch (err) {
-        console.log(err);
-    }
+	try {
+		// Prompt questions
+		const userInput = await inquirer.prompt(questions);
+
+		await pushEmployee(userInput);
+		// console.log(employee);
+		// while (questions.addMore === true) {
+		//     const userInput = await inquirer.prompt(questions);
+		//     return userInput
+		// }
+		// if (questions.addMore === true){
+		//     inquirer.prompt(questions);
+		// }
+		console.log(userInput.addMore);
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+// function to push employee to array
+const pushEmployee = (userInput) => {
+	switch (userInput.title) {
+		case "Manger":
+			employee = new Manger(
+				userInput.name,
+				userInput.id,
+				userInput.email,
+				userInput.officeNum
+			);
+			break;
+		case "Engineer":
+			employee = new Engineer(
+				userInput.name,
+				userInput.id,
+				userInput.email,
+				userInput.github
+			);
+			break;
+		case "Intern":
+			employee = new Intern(
+				userInput.name,
+				userInput.id,
+				userInput.email,
+				userInput.school
+			);
+			break;
+	}
+	employees.push(employee);
+	console.log(employees);
 };
 
 init();

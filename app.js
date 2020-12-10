@@ -40,16 +40,25 @@ const questions = [
         type: "input",
         name: "officeNum",
         message: "What is the manger's phone number",
+        when: function(userInput){
+            return userInput.title === "Manger"
+        }
     },
     {
         type: "input",
         name: "github",
         message: "What is the engineer's github address",
+        when: function(userInput){
+            return userInput.title === "Engineer"
+        }
     },
     {
         type: "input",
         name: "school",
         message: "What school does the intern go to",
+        when: function(userInput){
+            return userInput.title === "Intern"
+        }
     },
     {
         type: "confirm",
@@ -62,6 +71,13 @@ const init = async () => {
     try {
         // Prompt questions
         const userInput = await inquirer.prompt(questions);
+        // while (questions.addMore === true) {
+        //     const userInput = await inquirer.prompt(questions);
+        //     return userInput
+        // }
+        // if (questions.addMore === true){
+        //     inquirer.prompt(questions);
+        // }
         console.log(userInput.addMore);
     } catch (err) {
         console.log(err);

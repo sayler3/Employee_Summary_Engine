@@ -73,16 +73,10 @@ const init = async () => {
 		// Prompt questions
 		const userInput = await inquirer.prompt(questions);
 
-		await pushEmployee(userInput);
-		// console.log(employee);
-		// while (questions.addMore === true) {
-		//     const userInput = await inquirer.prompt(questions);
-		//     return userInput
-		// }
-		// if (questions.addMore === true){
-		//     inquirer.prompt(questions);
-		// }
-		console.log(userInput.addMore);
+        pushEmployee(userInput);
+        console.log(userInput.addMore);
+
+        addEmployee(userInput);
 	} catch (err) {
 		console.log(err);
 	}
@@ -119,6 +113,22 @@ const pushEmployee = (userInput) => {
 	employees.push(employee);
 	console.log(employees);
 };
+
+const addEmployee = (userInput) => {
+    if(userInput.addMore){
+        init();
+    } 
+    
+    // else {
+    //     console.log(employees);
+    //     if ()
+    //     fs.writeFile(outputPath, render(employees), (err) => {
+    //         if (err) throw err;
+    //     });
+    // }
+    // employees.push(employee);
+    // console.log(employees);
+}
 
 init();
 

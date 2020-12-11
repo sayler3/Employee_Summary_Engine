@@ -111,21 +111,21 @@ const pushEmployee = (userInput) => {
 			break;
 	}
 	employees.push(employee);
-	console.log(employees);
+	// console.log(employees);
 };
 
 const addEmployee = (userInput) => {
     if(userInput.addMore){
         init();
-    } 
-    
-    // else {
-    //     console.log(employees);
-    //     if ()
-    //     fs.writeFile(outputPath, render(employees), (err) => {
-    //         if (err) throw err;
-    //     });
-    // }
+    } else {
+        console.log(employees);
+        if (!fs.existsSync(OUTPUT_DIR)){
+            fs.mkdirSync(OUTPUT_DIR);
+        }
+        fs.writeFile(outputPath, render(employees), (err) => {
+            if (err) throw err;
+        });
+    }
     // employees.push(employee);
     // console.log(employees);
 }
